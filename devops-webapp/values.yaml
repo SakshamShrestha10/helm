@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: saksham1997/devops-webapp
+  repository: saksham1997/devopswebapp
   pullPolicy: Always
   tag: "latest"
 
