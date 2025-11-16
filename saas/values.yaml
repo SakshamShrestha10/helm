@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: saksham1997/devops
   pullPolicy: Always
-  tag: "c9b870f"
+  tag: "facee2e"
 
 resources:
   requests:
