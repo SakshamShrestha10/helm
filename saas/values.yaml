@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: saksham1997/devops
   pullPolicy: Always
-  tag: "b998131"
+  tag: "071d498"
 
 resources:
   requests:
