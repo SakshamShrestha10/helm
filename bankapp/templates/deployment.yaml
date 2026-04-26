@@ -4,32 +4,45 @@ metadata:
   name: {{ include "bankapp.fullname" . }}
   labels:
     {{- include "bankapp.labels" . | nindent 4 }}
+
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+
   selector:
     matchLabels:
       {{- include "bankapp.selectorLabels" . | nindent 6 }}
+
   template:
     metadata:
       labels:
         {{- include "bankapp.labels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+
     spec:
       volumes:
         - name: bankapp-config
           configMap:
             name: bank-app-config
+
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+
           ports:
             - containerPort: {{ .Values.service.port }}
-          livenessProbe: {{ toYaml .Values.livenessProbe | nindent 12 }}
-          readinessProbe: {{ toYaml .Values.readinessProbe | nindent 12 }}
+
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+
           resources:
-            requests: 
+            requests:
               cpu: {{ .Values.resources.requests.cpu }}
               memory: {{ .Values.resources.requests.memory }}
             limits:
@@ -40,7 +53,7 @@ spec:
             - name: bankapp-config
               mountPath: /app/config/application.properties
               subPath: application.properties
+
           env:
             - name: SPRING_CONFIG_LOCATION
               value: "file:/app/config/application.properties"
-
