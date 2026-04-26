@@ -19,7 +19,7 @@ spec:
       labels:
         {{- include "bankapp.labels" . | nindent 8 }}
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yml") . | sha256sum }}
 
     spec:
       volumes:
