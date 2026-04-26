@@ -17,8 +17,8 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 2
 
-targeCPUUtilizationPercentage: 80
-targetMemoryUtilizationPercentage: 80
+targeCPUUtilizationPercentage: 50
+targetMemoryUtilizationPercentage: 50
 
 service:
   type: NodePort
