@@ -21,7 +21,7 @@ targeCPUUtilizationPercentage: 80
 targetMemoryUtilizationPercentage: 80
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 80
   targetPort: 80
 
